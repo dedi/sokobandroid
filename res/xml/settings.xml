@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+<CheckBoxPreference 
+android:key="@string/require_trackball_press_key" 
+android:summary="@string/require_trackball_press_summary" 
+android:title="@string/require_trackball_press_title" android:defaultValue="false">
+</CheckBoxPreference>
+</PreferenceScreen>

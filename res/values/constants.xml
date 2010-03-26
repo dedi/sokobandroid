@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file contains application constants. It is used internally, and no
+internationalization should be done.-->
+<resources>
+    <!-- The URL of the 'about' page -->
+    <string name="about_url">file:///android_asset/doc/about.html</string>
+    <!-- The URL of the 'gpl' license -->
+    <string name="gpl_url">file:///android_asset/doc/gpl-3.0-standalone.html</string>
+
+    <!-- Keys for the preference attributes -->
+
+    <string name="require_trackball_press_key"></string>
+    
+<item name="require_trackball_press_def_value" type="attr" format="boolean">false</item>
+</resources>

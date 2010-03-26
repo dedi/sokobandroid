@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file contains application user messages and strings, and should
+     be internationalized if this ever is translated. -->
+<resources>
+    <string name="app_name">Sokoban For Android</string>
+
+    <!-- Buttons, captions, etc. -->
+    <string name="OK_BUTTON_CAPTION">OK</string>
+    <string name="CANCEL_BUTTON_CAPTION">Cancel</string>
+    <string name="UNDO_BUTTON_CAPTION">Undo</string>
+    <string name="LEVEL_TEXT">Level: %d</string>
+    
+    <!-- Dialogs -->
+    <string name="SELECT_LEVEL_DIALOG_TITLE">Select Level</string>
+    <string name="SELECT_LEVEL_DIALOG_CAPTION">New Level:</string>
+
+    <!-- Menu items -->
+    <string name="MENU_ITEM_NEXT_CAPTION">Next Level</string>
+    <string name="MENU_ITEM_PREV_CAPTION">Prev Level</string>
+    <string name="MENU_ITEM_SELECT_LEVEL_CAPTION">Enter Level</string>
+    <string name="MENU_ITEM_RESTART_CAPTION">Restart Level</string>
+    <string name="MENU_ITEM_SETUP_CAPTION">Preferences...</string>
+    <string name="MENU_ITEM_CHANGE_LEVEL_CAPTION">Change Level...</string>
+    <string name="MENU_ITEM_ABOUT_CAPTION">About</string>
+    <string name="MENU_ITEM_LICENSE_CAPTION">License</string>
+    <string name="MENU_ITEM_EXIT_CAPTION">Exit</string>
+    <string name="MENU_ITEM_INFO_CAPTION">Info...</string>
+
+    
+    <!--  Errors, etc. -->
+    <string name="ERR_LEVEL_LOAD">An error occured while trying to read level# %s</string>
+    
+    <!-- Preference page titles and summaries -->
+    <string name="require_trackball_press_summary">If checked, the trackball will only move the player when pressed</string>
+    <string name="require_trackball_press_title">Require Trackball Press</string>
+</resources>

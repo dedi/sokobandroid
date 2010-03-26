@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffe0e0e0">
+
+<TableLayout
+    android:id="@+id/nav_button_view" 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dip"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:paddingRight="4mm"
+    android:paddingBottom="1mm"
+    android:focusable="false" 
+    >
+
+    <TableRow>
+        <ImageButton
+            android:id="@+id/up_button" 
+            android:layout_column="1"
+            android:focusable="false" 
+            android:scaleType="fitCenter"
+            android:src="@drawable/up_arrow"
+            android:layout_width="8mm"
+            android:layout_height="8mm"
+        />
+    </TableRow>
+
+    <TableRow>
+        <ImageButton
+            android:id="@+id/left_button" 
+            android:layout_column="0"
+            android:focusable="false" 
+            android:scaleType="fitCenter"
+            android:src="@drawable/left_arrow"
+            android:layout_width="8mm"
+            android:layout_height="8mm"
+        />
+
+        <ImageButton 
+            android:id="@+id/undo_button" 
+            android:focusable="false" 
+            android:scaleType="fitCenter"
+            android:src="@drawable/undo"
+            android:layout_width="8mm"
+            android:layout_height="8mm"
+        />
+
+        <ImageButton
+            android:id="@+id/right_button" 
+            android:layout_column="2"
+            android:focusable="false"
+            android:scaleType="fitCenter"
+            android:src="@drawable/right_arrow"
+            android:layout_width="8mm"
+            android:layout_height="8mm"
+        />
+    </TableRow>
+
+    <TableRow>
+        <ImageButton
+            android:id="@+id/down_button" 
+            android:layout_column="1"
+            android:focusable="false" 
+            android:scaleType="fitCenter"
+            android:src="@drawable/down_arrow"
+            android:layout_width="8mm"
+            android:layout_height="8mm"
+        />
+    </TableRow>
+</TableLayout>
+<TextView
+    android:id="@+id/status_view"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:focusable="false" 
+    android:textColor="#ff000000"
+    android:background="#ffe0e0e0"/>
+    
+    <com.xomzom.androidstuff.sokoban.SokoView
+    android:id="@+id/game_view"  
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_toLeftOf="@id/nav_button_view"
+    />
+
+    
+</RelativeLayout>
