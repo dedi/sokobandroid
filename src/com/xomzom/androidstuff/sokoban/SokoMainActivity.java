@@ -19,9 +19,7 @@
 
 package com.xomzom.androidstuff.sokoban;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.FieldPosition;
 import java.util.Vector;
 
 import android.app.Activity;
@@ -42,7 +40,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -55,6 +52,7 @@ import android.widget.TextView;
  * TODO: Allow dragging.
  * TODO: Good images, and possibly themes.
  * TODO: Fix layout.
+ * TODO: Remove unwanted prefrences.
  */
 public class SokoMainActivity extends Activity implements OnClickListener
 {
@@ -397,13 +395,11 @@ public class SokoMainActivity extends Activity implements OnClickListener
      */
     private void doHtmlDocDialog(int dialogUrlResId)
     {
-        WebView webView = new WebView(this);
-        String url = getString(dialogUrlResId);
-        webView.loadUrl(url);
-        CharSequence okCaption = getText(R.string.OK_BUTTON_CAPTION);
-        DialogFactory dialogFct = DialogFactory.getInstance();
-        dialogFct.messageBoxFromURI(this, webView, okCaption, 
-                dialogFct.getDismissHandler());
+        String uriString = getString(dialogUrlResId);
+        Uri uri = Uri.parse(uriString);
+        Intent intent = new Intent(this, HtmlResViewActivity.class);
+        intent.setData(uri);
+        startActivity(intent);
     }
 
     /**
@@ -419,7 +415,6 @@ public class SokoMainActivity extends Activity implements OnClickListener
      */
     private void doShowLicense()
     {
-        // TODO: Fix license page.
         doHtmlDocDialog(R.string.gpl_url);
     }
     
