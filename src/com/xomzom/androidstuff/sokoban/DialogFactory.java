@@ -18,6 +18,9 @@ import android.view.View;
  * singleton factory object, and return the dialog it returns.
  * Additionally, this class implements some helper methods to create a,
  * messagebox, a yes-no dialog, and an 'ok-cancel' dialog.
+ * 
+ * TODO: Take a look at this, and maybe use 'setOwnerActivity' method instead. 
+ * Otherwise, at least rename the thing. 
  *
  * @author dedi
  *

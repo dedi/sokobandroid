@@ -15,7 +15,7 @@
     />
 
     <EditText
-        android:id="@+id/level"
+        android:id="@+id/select_level_level_field"
         android:layout_below="@+id/select_level_caption"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
     />
 
     <Button
-        android:id="@+id/cancel"
+        android:id="@+id/select_level_cancel"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="@string/CANCEL_BUTTON_CAPTION"
@@ -35,8 +35,9 @@
         />
 
     <Button
+        android:id="@+id/select_level_ok"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/cancel"
+        android:layout_toLeftOf="@id/select_level_cancel"
         android:text="@string/OK_BUTTON_CAPTION"
         android:minWidth="80sp"
         android:layout_width="wrap_content"

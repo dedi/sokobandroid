@@ -83,7 +83,7 @@ public class SokoView extends View
     /**
      * The associated game activity.
      */
-    private SokoMainActivity m_game;
+    private SokoGameActivity m_game;
     
     /**
      * The paint object to use (for now).
@@ -115,7 +115,7 @@ public class SokoView extends View
     /**
      * set the game activity object associated with this view.
      */
-    public void setGame(SokoMainActivity game)
+    public void setGame(SokoGameActivity game)
     {
         m_game = game;
         invalidate();

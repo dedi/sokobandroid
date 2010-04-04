@@ -11,5 +11,9 @@ internationalization should be done.-->
 
     <string name="require_trackball_press_key"></string>
     
-<item name="require_trackball_press_def_value" type="attr" format="boolean">false</item>
+    <!-- The number of levels in the level database -->
+    <item name="num_levels" type="attr">355</item>
+
+    <!-- The default value of the trackball press preference -->
+    <item name="require_trackball_press_def_value" type="attr" format="boolean">false</item>
 </resources>

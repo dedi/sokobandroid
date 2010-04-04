@@ -53,8 +53,13 @@ import android.widget.TextView;
  * TODO: Good images, and possibly themes.
  * TODO: Fix layout.
  * TODO: Remove unwanted prefrences.
+ * TODO: Naming convention for constants, ids and strings.
+ * TODO: Why is the buttons orange? and why is the 'up' button selected when
+ * I use the trackball?
+ * TODO: Simplify menu using intents.
+ * 
  */
-public class SokoMainActivity extends Activity implements OnClickListener
+public class SokoGameActivity extends Activity implements OnClickListener
 {
     //
     // Constants.
@@ -113,6 +118,16 @@ public class SokoMainActivity extends Activity implements OnClickListener
      * The 'Right' button.
      */
     private ImageButton m_rightButton;
+    
+    /**
+     * The 'previous level' menu item.
+     */
+    private MenuItem m_previousLevelMenuItem;
+    
+    /**
+     * The 'next level' menu item.
+     */
+    private MenuItem m_nextLevelMenuItem;
 
     /**
      * The list of moves done in the game.
@@ -123,6 +138,16 @@ public class SokoMainActivity extends Activity implements OnClickListener
      * The 'require trackball press' preference.
      */
     private boolean m_prefRequireTBPress;
+    
+    /**
+     * The number of levels.
+     */
+    private int m_maxLevels;
+    
+    /**
+     * The 'select level' dialog.
+     */
+    private SelectLevelDialog m_selectLevelDialog; 
     
     //
     // Operations.
@@ -159,8 +184,18 @@ public class SokoMainActivity extends Activity implements OnClickListener
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
+        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.mainmenu, menu);
+        
+        m_previousLevelMenuItem = (MenuItem)menu.findItem(R.id.MENU_ITEM_PREV);
+        assert(m_previousLevelMenuItem != null);
+        
+        m_nextLevelMenuItem = (MenuItem)menu.findItem(R.id.MENU_ITEM_NEXT);
+        assert(m_nextLevelMenuItem != null);
+        
+        setMenuButtonsState();
+        
         return true;
     }
 
@@ -174,21 +209,17 @@ public class SokoMainActivity extends Activity implements OnClickListener
     }
 
     /**
-     * Display the given error alert, and exit when the user clicks OK.
+     * Display a 'couldn't load level' error message.
+     * @param level The level that failed to load.
      */
-    private void alertAndExit(String text)
+    private void doLevelLoadError(int level)
     {
+        String errMsg = getString(R.string.ERR_LEVEL_LOAD, level);
+        String okButtonCaption = getString(R.string.OK_BUTTON_CAPTION);
         DialogFactory dialogFactory = DialogFactory.getInstance();
-        DialogInterface.OnClickListener exitAction = 
-            new DialogInterface.OnClickListener() {
-              public void onClick(DialogInterface dialog, int id) {
-                  writeCurrentLevelNumber();
-                  finish();
-              }
-          };
-          
-        dialogFactory.messageBox(this, text, 
-                getText(R.string.OK_BUTTON_CAPTION), exitAction);
+        DialogInterface.OnClickListener dismissAction = 
+            dialogFactory.getDismissHandler();
+        dialogFactory.messageBox(this, errMsg, okButtonCaption, dismissAction);
     }
 
     /**
@@ -201,12 +232,16 @@ public class SokoMainActivity extends Activity implements OnClickListener
         button.setOnClickListener(this);
         return button;
     }
+    
     /**
      * Initialize the game.
      */
     private void init()
     {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        Resources res = getResources();
+        m_maxLevels = res.getInteger(R.attr.num_levels);
         m_statusView = (TextView)findViewById(R.id.status_view);
         m_undoButton = initButton(R.id.undo_button);
         m_upButton = initButton(R.id.up_button);
@@ -214,51 +249,54 @@ public class SokoMainActivity extends Activity implements OnClickListener
         m_leftButton = initButton(R.id.left_button);
         m_rightButton = initButton(R.id.right_button);
 
-        
         int level = readCurrentLevelNumber();
-        setLevel(level, false);
-        
+        if (!setLevel(level))
+        {
+            if (!setLevel(1))
+                finish();
+        }
+
         m_gameView = (SokoView)findViewById(R.id.game_view);
         assert(m_gameView != null);
         m_gameView.setGame(this);
     }
     
     /**
-     * Set the level. This can be used to specify an absolute level, or an
-     * offset relative to the current level. (So you could, for example go
-     * to the previous level by calling setLevel(-1, true).
+     * Advance one level.
+     */
+    public void advanceLevel()
+    {
+        setLevel(m_level + 1);
+    }
+    
+    /**
+     * Set the level.
      * 
      * @param level, the new level (or offset).
-     * @param isOffset true if the level argument should be treated as an 
-     * offset relative to the current one. 
+     * @return true if the level was read successfully, false otherwise. If the
+     * level was not read, an error has already been displayed.
      */
-    public void setLevel(int newLevel, boolean isOffset)
+    public boolean setLevel(int newLevel)
     {
-        if (isOffset)
-        {
-            newLevel += m_level;
-        }
-        
         try
         {
             m_board.read(newLevel, getAssets());
         }
         catch (IOException e)
         {
-            e.printStackTrace();
-            String errMsg = getString(R.string.ERR_LEVEL_LOAD, m_level);
-            alertAndExit(errMsg);
-            // We should never really get here.
-            assert(false);
-            return;
+            Log.e(this.getClass().toString(), Log.getStackTraceString(e));
+            doLevelLoadError(newLevel);
+            return false;
         }
         m_level = newLevel;
         String statusText = getString(R.string.LEVEL_TEXT, m_level);
         m_statusView.setText(statusText);
         m_moveList.removeAllElements();
         setUndoButtonState();
+        setMenuButtonsState();
         if (m_gameView != null)
             m_gameView.invalidate();
+        return true;
     }
 
     /**
@@ -271,19 +309,19 @@ public class SokoMainActivity extends Activity implements OnClickListener
         switch (item.getItemId())
         {
           case R.id.MENU_ITEM_NEXT:
-            setLevel(1, true);
+            advanceLevel();
             return true;
           case R.id.MENU_ITEM_PREV:
-            setLevel(-1, true);
+            setLevel(m_level - 1);
             return true;
           case R.id.MENU_ITEM_SELECT_LEVEL:
-            // TODO: Do select level dialog.
-            return false;
+            doSelectLevelDialog();
+            return true;
           case R.id.MENU_ITEM_SETUP:
             doSetupActivity();
             return true;
           case R.id.MENU_ITEM_RESTART:
-            setLevel(m_level, false);
+            setLevel(m_level);
             return true;
           case R.id.MENU_ITEM_ABOUT:
             doAbout();
@@ -297,6 +335,14 @@ public class SokoMainActivity extends Activity implements OnClickListener
             return true;
         }
         return false;
+    }
+
+    private void doSelectLevelDialog()
+    {
+        if (m_selectLevelDialog == null)
+            m_selectLevelDialog = new SelectLevelDialog(this);
+
+        DialogFactory.getInstance().doActivityDialog(this, m_selectLevelDialog);
     }
 
     /**
@@ -341,7 +387,7 @@ public class SokoMainActivity extends Activity implements OnClickListener
         }
         if (m_board.isSolved())
         {
-            setLevel(1, true);
+            advanceLevel();
         }
     }
 
@@ -367,6 +413,24 @@ public class SokoMainActivity extends Activity implements OnClickListener
     private void setUndoButtonState()
     {
         m_undoButton.setEnabled(!m_moveList.isEmpty());
+    }
+
+    /**
+     * Enable/disable the menu buttons according to the current level.
+     */
+    private void setMenuButtonsState()
+    {
+        Log.d("Dedi", "m_previousLevelMenuItem = " + m_previousLevelMenuItem + 
+                ", m_nextLevelMenuItem = " + m_nextLevelMenuItem + 
+                ", m_level = " + m_level);
+
+        // If the previous level item is null, the menu has not yet been 
+        // initialized.
+        if (m_previousLevelMenuItem == null)
+            return;
+        
+        m_previousLevelMenuItem.setEnabled(m_level > 1);
+        m_nextLevelMenuItem.setEnabled(m_level < m_maxLevels);
     }
 
     /**
@@ -456,7 +520,7 @@ public class SokoMainActivity extends Activity implements OnClickListener
     public void onClick(View src)
     {
         if (src == m_undoButton)
-            SokoMainActivity.this.undoMove();
+            SokoGameActivity.this.undoMove();
         else if (src == m_upButton)
             doMove(new Move(Move.DIR_UP));
         else if (src == m_downButton)
