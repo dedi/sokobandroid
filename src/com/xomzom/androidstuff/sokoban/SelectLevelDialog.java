@@ -1,6 +1,7 @@
 package com.xomzom.androidstuff.sokoban;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,7 +25,7 @@ public class SelectLevelDialog extends Dialog
     /**
      * The Sokoban activity this dialog is associated with.
      */
-    private SokoGameActivity m_sokoActivity;
+    private SokoGameActivity m_owner;
     
     /**
      * The 'OK' button.
@@ -53,7 +54,7 @@ public class SelectLevelDialog extends Dialog
     public SelectLevelDialog(SokoGameActivity owner)
     {
         super(owner);
-        m_sokoActivity = owner;
+        m_owner = owner;
         setOwnerActivity(owner);
     }
 
@@ -86,12 +87,31 @@ public class SelectLevelDialog extends Dialog
         if (source == m_okButton)
         {
             int newLevel = getLevelFieldValue();
-            if (newLevel > 0)
-                m_sokoActivity.setLevel(newLevel);
+            if (newLevel > 0 && newLevel <= m_owner.getMaxLevel())
+                m_owner.setLevel(newLevel);
+            else
+                doBadLevelError();
         }
 
         dismiss();
     }
+    
+    /**
+     * Display a 'bad level selected' error message.
+     */
+    private void doBadLevelError()
+    {
+        int maxLevel = m_owner.getMaxLevel();
+        String errMsg = 
+            m_owner.getString(R.string.BAD_LEVEL_SELECTED, maxLevel);
+        String okButtonCaption = m_owner.getString(R.string.OK_BUTTON_CAPTION);
+        DialogFactory dialogFactory = DialogFactory.getInstance();
+        DialogInterface.OnClickListener dismissAction = 
+            dialogFactory.getDismissHandler();
+        dialogFactory.messageBox(m_owner, errMsg, 
+                                 okButtonCaption, dismissAction);
+    }
+
     
     /**
      * Get the contents of the level field. Return -1 if the content of the 

@@ -142,7 +142,7 @@ public class SokoGameActivity extends Activity implements OnClickListener
     /**
      * The number of levels.
      */
-    private int m_maxLevels;
+    private int m_maxLevel;
     
     /**
      * The 'select level' dialog.
@@ -241,7 +241,7 @@ public class SokoGameActivity extends Activity implements OnClickListener
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         Resources res = getResources();
-        m_maxLevels = res.getInteger(R.attr.num_levels);
+        m_maxLevel = res.getInteger(R.attr.num_levels);
         m_statusView = (TextView)findViewById(R.id.status_view);
         m_undoButton = initButton(R.id.undo_button);
         m_upButton = initButton(R.id.up_button);
@@ -430,7 +430,7 @@ public class SokoGameActivity extends Activity implements OnClickListener
             return;
         
         m_previousLevelMenuItem.setEnabled(m_level > 1);
-        m_nextLevelMenuItem.setEnabled(m_level < m_maxLevels);
+        m_nextLevelMenuItem.setEnabled(m_level < m_maxLevel);
     }
 
     /**
@@ -571,5 +571,14 @@ public class SokoGameActivity extends Activity implements OnClickListener
         Boolean defaultValue = res.getBoolean(defValueResId);
 
         return prefs.getBoolean(key, defaultValue);
+    }
+
+    /**
+     * Return the highest valid level number.
+     * @return
+     */
+    public int getMaxLevel()
+    {
+        return m_maxLevel;
     }
 }

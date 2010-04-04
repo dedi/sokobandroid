@@ -28,7 +28,9 @@
 
     
     <!--  Errors, etc. -->
-    <string name="ERR_LEVEL_LOAD">An error occured while trying to read level# %s</string>
+    <string name="ERR_LEVEL_LOAD">Couldn't read level %s</string>
+    <string name="BAD_LEVEL_SELECTED">Invalid levels. Level values should be 
+    between 1 and %d</string>
     
     <!-- Preference page titles and summaries -->
     <string name="require_trackball_press_summary">If checked, the trackball will only move the player when pressed</string>
