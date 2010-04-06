@@ -3,20 +3,20 @@
 internationalization should be done.-->
 <resources>
     <!-- The URL of the 'about' page -->
-    <string name="about_url">file:///android_asset/doc/about.html</string>
+    <string name="ABOUT_URL">file:///android_asset/doc/about.html</string>
     <!-- The URL of the 'gpl' license -->
-    <string name="gpl_url">file:///android_asset/doc/gpl-3.0-standalone.html</string>
+    <string name="GPL_URL">file:///android_asset/doc/gpl-3.0-standalone.html</string>
 
     <!-- Keys for the preference attributes -->
 
-    <string name="pref_show_undo_button_key">pref_show_undo_button_key</string>
-    <string name="pref_show_nav_buttons_key">pref_show_nav_buttons_key</string>
+    <string name="PREF_SHOW_UNDO_BUTTON_KEY">PREF_SHOW_UNDO_BUTTON_KEY</string>
+    <string name="PREF_SHOW_NAV_BUTTONS_KEY">PREF_SHOW_NAV_BUTTONS_KEY</string>
     
     <!-- The number of levels in the level database -->
-    <item name="num_levels" type="attr" format="integer">355</item>
+    <item name="NUM_LEVELS" type="attr" format="integer">355</item>
 
     <!-- The default value of the trackball press preference -->
-    <item name="pref_show_nav_buttons_def_value" type="attr" format="boolean">
+    <item name="PREF_SHOW_NAV_BUTTONS_DEF_VALUE" type="attr" format="boolean">
     true
     </item>
     

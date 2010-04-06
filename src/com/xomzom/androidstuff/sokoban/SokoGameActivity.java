@@ -50,10 +50,11 @@ import android.widget.TextView;
  * The Sokban game activity.
  * 
  * @author Dedi Hirschfeld
- * 
+ *
+ * TODO: Split about to 'instructions' and 'about', and allow
+ * internationalization.
  * TODO: Allow dragging.
  * TODO: Good images, and possibly themes.
- * TODO: Naming convention for constants, ids and strings.
  */
 public class SokoGameActivity extends Activity 
     implements OnClickListener, OnSharedPreferenceChangeListener
@@ -310,8 +311,8 @@ public class SokoGameActivity extends Activity
         m_nextLevelMenuItem = (MenuItem)menu.findItem(R.id.MENU_ITEM_NEXT);
         m_undoMenuItem = (MenuItem)menu.findItem(R.id.MENU_ITEM_UNDO);
 
-        setUrlToShowOnMenuItem(menu, R.id.MENU_ITEM_ABOUT, R.string.about_url);
-        setUrlToShowOnMenuItem(menu, R.id.MENU_ITEM_LICENSE, R.string.gpl_url);
+        setUrlToShowOnMenuItem(menu, R.id.MENU_ITEM_ABOUT, R.string.ABOUT_URL);
+        setUrlToShowOnMenuItem(menu, R.id.MENU_ITEM_LICENSE, R.string.GPL_URL);
 
         Intent intent = new Intent(this, SettingsActivity.class);
         setIntentForMenuItem(menu, R.id.MENU_ITEM_SETUP, intent);
@@ -456,7 +457,7 @@ public class SokoGameActivity extends Activity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         Resources res = getResources();
-        m_maxLevel = res.getInteger(R.attr.num_levels);
+        m_maxLevel = res.getInteger(R.attr.NUM_LEVELS);
         m_statusView = (TextView)findViewById(R.id.status_view);
         m_navUndoButton = initButton(R.id.nav_undo_button);
         m_standaloneUndoButton = initButton(R.id.standalone_undo_button);
@@ -615,8 +616,8 @@ public class SokoGameActivity extends Activity
         
         boolean showUndoButton = hasTouchScreen; 
         boolean showNavButtons = (hasTouchScreen && !hasDpad);
-        setBoolPrefDefault(R.string.pref_show_nav_buttons_key, showNavButtons);
-        setBoolPrefDefault(R.string.pref_show_undo_button_key, showUndoButton);
+        setBoolPrefDefault(R.string.PREF_SHOW_NAV_BUTTONS_KEY, showNavButtons);
+        setBoolPrefDefault(R.string.PREF_SHOW_UNDO_BUTTON_KEY, showUndoButton);
     }
 
     /**
@@ -643,9 +644,9 @@ public class SokoGameActivity extends Activity
     private void refreshPreferences()
     {
         boolean showNavButtonsPref = 
-            getBoolPrefByKeyID(R.string.pref_show_nav_buttons_key, false);
+            getBoolPrefByKeyID(R.string.PREF_SHOW_NAV_BUTTONS_KEY, false);
         boolean showUndoButtonPref = 
-            getBoolPrefByKeyID(R.string.pref_show_undo_button_key, false);
+            getBoolPrefByKeyID(R.string.PREF_SHOW_UNDO_BUTTON_KEY, false);
 
         View navButtonView = findViewById(R.id.nav_button_view);
 

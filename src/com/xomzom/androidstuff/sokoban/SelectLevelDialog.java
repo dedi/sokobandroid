@@ -103,7 +103,7 @@ public class SelectLevelDialog extends Dialog
     {
         int maxLevel = m_owner.getMaxLevel();
         String errMsg = 
-            m_owner.getString(R.string.BAD_LEVEL_SELECTED, maxLevel);
+            m_owner.getString(R.string.ERR_BAD_LEVEL_SELECTED, maxLevel);
         String okButtonCaption = m_owner.getString(R.string.OK_BUTTON_CAPTION);
         DialogFactory dialogFactory = DialogFactory.getInstance();
         DialogInterface.OnClickListener dismissAction = 

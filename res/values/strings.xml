@@ -2,7 +2,7 @@
 <!-- This file contains application user messages and strings, and should
      be internationalized if this ever is translated. -->
 <resources>
-    <string name="app_name">Sokoban For Android</string>
+    <string name="APP_NAME">Sokoban For Android</string>
 
     <!-- Buttons, captions, etc. -->
     <string name="OK_BUTTON_CAPTION">OK</string>
@@ -29,23 +29,23 @@
     
     <!--  Errors, etc. -->
     <string name="ERR_LEVEL_LOAD">Couldn't read level %s</string>
-    <string name="BAD_LEVEL_SELECTED">Invalid levels. Level values should be 
+    <string name="ERR_BAD_LEVEL_SELECTED">Invalid levels. Level values should be 
     between 1 and %d</string>
     
     <!-- Preference page titles and summaries -->
-    <string name="pref_group_buttons_title">Touchscreen Buttons</string>
-    <string name="pref_group_buttons_summary">
+    <string name="PREF_GROUP_BUTTONS_TITLE">Touchscreen Buttons</string>
+    <string name="PREF_GROUP_BUTTONS_SUMMARY">
     Select which touchscreen buttons to show.</string>
-    <string name="pref_main_page_title">Sokoban Game Preferences</string>
-    <string name="pref_show_nav_buttons_summary">
+    <string name="PREF_MAIN_PAGE_TITLE">Sokoban Game Preferences</string>
+    <string name="PREF_SHOW_NAV_BUTTONS_SUMMARY">
     If checked, show navigation buttons on screen (useful for touch screen only)
     </string>
-    <string name="pref_show_nav_buttons_title">Show Navigation Buttons</string>
+    <string name="PREF_SHOW_NAV_BUTTONS_TITLE">Show Navigation Buttons</string>
     
-    <string name="pref_show_undo_button_summary">
+    <string name="PREF_SHOW_UNDO_BUTTON_SUMMARY">
     If checked, show undo button on screen (useful for touch screen only)
     </string>
-    <string name="pref_show_undo_button_title">Show Undo Button</string>
+    <string name="PREF_SHOW_UNDO_BUTTON_TITLE">Show Undo Button</string>
     
     
 </resources>
