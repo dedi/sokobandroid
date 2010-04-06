@@ -246,6 +246,7 @@ public class SokoView extends View
 
     /**
      * @see android.view.View#measure(int, int)
+     * TODO: Figure this out.
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

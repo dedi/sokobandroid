@@ -9,11 +9,15 @@ internationalization should be done.-->
 
     <!-- Keys for the preference attributes -->
 
-    <string name="require_trackball_press_key"></string>
+    <string name="pref_show_undo_button_key">pref_show_undo_button_key</string>
+    <string name="pref_show_nav_buttons_key">pref_show_nav_buttons_key</string>
     
     <!-- The number of levels in the level database -->
-    <item name="num_levels" type="attr">355</item>
+    <item name="num_levels" type="attr" format="integer">355</item>
 
     <!-- The default value of the trackball press preference -->
-    <item name="require_trackball_press_def_value" type="attr" format="boolean">false</item>
+    <item name="pref_show_nav_buttons_def_value" type="attr" format="boolean">
+    true
+    </item>
+    
 </resources>

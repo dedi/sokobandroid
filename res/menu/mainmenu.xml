@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:title="@string/MENU_ITEM_CHANGE_LEVEL_CAPTION">
+  
+  <item android:id="@+id/MENU_ITEM_UNDO"
+        android:visible="true" android:title="@string/UNDO_BUTTON_CAPTION"></item>
+  <item android:id="@+id/MENU_ITEM_RESTART"
+        android:title="@string/MENU_ITEM_RESTART_CAPTION" android:visible="true"></item>
+  <item android:id="@+id/MENU_ITEM_CHANGE_LEVEL" android:title="@string/MENU_ITEM_CHANGE_LEVEL_CAPTION">
   <menu>
-    <item android:id="@+id/MENU_ITEM_NEXT"
-      android:title="@string/MENU_ITEM_NEXT_CAPTION" android:visible="true"/>
-    <item android:id="@+id/MENU_ITEM_PREV"
-      android:title="@string/MENU_ITEM_PREV_CAPTION" android:visible="true"/>
-    <item android:id="@+id/MENU_ITEM_SELECT_LEVEL"
-      android:title="@string/MENU_ITEM_SELECT_LEVEL_CAPTION" android:visible="true"/>
+    <item android:id="@+id/MENU_ITEM_NEXT" android:title="@string/MENU_ITEM_NEXT_CAPTION" android:visible="true" />
+    <item android:id="@+id/MENU_ITEM_PREV" android:title="@string/MENU_ITEM_PREV_CAPTION" android:visible="true" />
+    <item android:id="@+id/MENU_ITEM_SELECT_LEVEL" android:title="@string/MENU_ITEM_SELECT_LEVEL_CAPTION" android:visible="true" />
   </menu>
   </item>
-  <item android:id="@+id/MENU_ITEM_RESTART"
-        android:title="@string/MENU_ITEM_RESTART_CAPTION" android:visible="true"/>
   <item android:id="@+id/MENU_ITEM_SETUP"
         android:title="@string/MENU_ITEM_SETUP_CAPTION" android:visible="true"/>
-  <item android:title="@string/MENU_ITEM_INFO_CAPTION">
+  <item android:id="@+id/MENU_ITEM_INFO" android:title="@string/MENU_ITEM_INFO_CAPTION">
   <menu>
     <item android:id="@+id/MENU_ITEM_ABOUT"
           android:title="@string/MENU_ITEM_ABOUT_CAPTION" android:visible="true"/>

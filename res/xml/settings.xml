@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-  xmlns:android="http://schemas.android.com/apk/res/android">
-<CheckBoxPreference 
-android:key="@string/require_trackball_press_key" 
-android:summary="@string/require_trackball_press_summary" 
-android:title="@string/require_trackball_press_title" android:defaultValue="false">
-</CheckBoxPreference>
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:key="@string/pref_main_page_title">
+<PreferenceCategory android:title="@string/pref_group_buttons_title" android:summary="@string/pref_group_buttons_summary"><CheckBoxPreference android:key="@string/pref_show_nav_buttons_key" android:summary="@string/pref_show_nav_buttons_summary" android:title="@string/pref_show_nav_buttons_title">
+</CheckBoxPreference><CheckBoxPreference android:key="@string/pref_show_undo_button_key" android:summary="@string/pref_show_undo_button_summary" android:title="@string/pref_show_undo_button_title">
+</CheckBoxPreference></PreferenceCategory>
+
+
 </PreferenceScreen>
