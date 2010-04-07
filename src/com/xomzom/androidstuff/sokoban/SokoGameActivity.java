@@ -55,6 +55,7 @@ import android.widget.TextView;
  * internationalization.
  * TODO: Allow dragging.
  * TODO: Good images, and possibly themes.
+ * TODO: Landscape thing.
  */
 public class SokoGameActivity extends Activity 
     implements OnClickListener, OnSharedPreferenceChangeListener
@@ -158,8 +159,8 @@ public class SokoGameActivity extends Activity
      * Our preference object, shared with the settings activity.
      */
     private SharedPreferences m_prefs;
-
     
+
     //
     // activity lifecycle.
     //
@@ -183,6 +184,7 @@ public class SokoGameActivity extends Activity
     public void onPause()  
     {
         super.onPause();
+        // TODO: Save the entire state. And use a bundle to do it.
         writeCurrentLevelNumber();
     }
     
@@ -420,18 +422,6 @@ public class SokoGameActivity extends Activity
     }
 
     /**
-     * Handle configuration change. TODO: Figure out why this is needed.
-     * @see android.app.Activity#onConfigurationChanged(android.content.res.Configuration)
-     */
-    @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
-        super.onConfigurationChanged(newConfig);
-        if (m_gameView != null)
-            m_gameView.invalidate();
-    }
-
-    /**
      * onCreateDialog event - forward requests to the factory.
      */
     @Override
@@ -568,7 +558,6 @@ public class SokoGameActivity extends Activity
      */
     private int readCurrentLevelNumber()
     {
-        // TODO: Combine with system preferences.
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         return preferences.getInt(LEVEL_PREF_NAME, 1);
     }
