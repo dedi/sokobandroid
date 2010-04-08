@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This file contains application constants. It is used internally, and no
-internationalization should be done.-->
+
+<!-- This file contains constants which are shared between several application
+     components. It is used internally, and no internationalization 
+     is needed.-->
+
 <resources>
     <!-- The URL of the 'about' page -->
-    <string name="ABOUT_URL">file:///android_asset/doc/about.html</string>
-    <!-- The URL of the 'gpl' license -->
-    <string name="GPL_URL">file:///android_asset/doc/gpl-3.0-standalone.html</string>
+    <string name="HELP_URL">
+        android.resource://com.xomzom.androidstuff.sokoban/raw/helpindex
+    </string>
 
     <!-- Keys for the preference attributes -->
 

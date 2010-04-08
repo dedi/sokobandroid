@@ -40,11 +40,6 @@ public class SokoView extends View
     //
     
     /**
-     * The background color.
-     */
-    private final static int BACKGROUND_COLOR = 0xffe0e0e0;
-
-    /**
      * The wall color.
      */
     private final static int WALL_COLOR = 0xff0000ff;
@@ -127,9 +122,8 @@ public class SokoView extends View
     @Override
     protected void onDraw(Canvas canvas)
     {
+        // This will draw the background for the resource.
         super.onDraw(canvas);
-
-        canvas.drawColor(BACKGROUND_COLOR);
         
         m_paint = new Paint();
         m_paint.setAntiAlias(true);

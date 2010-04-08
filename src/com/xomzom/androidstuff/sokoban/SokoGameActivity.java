@@ -51,11 +51,10 @@ import android.widget.TextView;
  * 
  * @author Dedi Hirschfeld
  *
- * TODO: Split about to 'instructions' and 'about', and allow
- * internationalization.
  * TODO: Allow dragging.
  * TODO: Good images, and possibly themes.
  * TODO: Landscape thing.
+ * TODO: Help.
  */
 public class SokoGameActivity extends Activity 
     implements OnClickListener, OnSharedPreferenceChangeListener
@@ -313,8 +312,7 @@ public class SokoGameActivity extends Activity
         m_nextLevelMenuItem = (MenuItem)menu.findItem(R.id.MENU_ITEM_NEXT);
         m_undoMenuItem = (MenuItem)menu.findItem(R.id.MENU_ITEM_UNDO);
 
-        setUrlToShowOnMenuItem(menu, R.id.MENU_ITEM_ABOUT, R.string.ABOUT_URL);
-        setUrlToShowOnMenuItem(menu, R.id.MENU_ITEM_LICENSE, R.string.GPL_URL);
+        setUrlToShowOnMenuItem(menu, R.id.MENU_ITEM_HELP, R.string.HELP_URL);
 
         Intent intent = new Intent(this, SettingsActivity.class);
         setIntentForMenuItem(menu, R.id.MENU_ITEM_SETUP, intent);
