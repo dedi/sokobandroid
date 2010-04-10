@@ -38,7 +38,7 @@
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:layout_weight="0"
-    android:gravity="bottom"
+    android:gravity="center"
     >
     
     <!-- There's a trick here - we actually have two similar undo buttons, 
@@ -49,13 +49,10 @@
         android:focusable="false" 
         android:scaleType="fitCenter"
         android:src="@drawable/undo"
-        android:layout_width="8mm"
-        android:layout_height="8mm"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginBottom="10dip"
-        android:paddingRight="4mm"
-        android:paddingBottom="1mm"
+        android:layout_width="9mm"
+        android:layout_height="9mm"
+        android:layout_marginRight="5mm"
+        android:layout_marginLeft="2mm"
     />
 
     <TableLayout
@@ -63,32 +60,36 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:focusable="false" 
-	    android:layout_marginLeft="10dip"
-	    android:paddingRight="4mm"
-	    android:paddingBottom="1mm"
+	    android:layout_marginRight="2mm"
+        android:layout_marginLeft="1mm"
     >
 
-	    <TableRow>
+	    <TableRow
+	       android:layout_marginBottom="1mm"
+	    >
 	        <ImageButton
 	            android:id="@+id/up_button" 
 	            android:layout_column="1"
 	            android:focusable="false" 
 	            android:scaleType="fitCenter"
 	            android:src="@drawable/up_arrow"
-	            android:layout_width="8mm"
-	            android:layout_height="8mm"
+	            android:layout_width="9mm"
+	            android:layout_height="9mm"
 	        />
 	    </TableRow>
 	
-	    <TableRow>
+	    <TableRow
+	       android:layout_marginBottom="1mm"
+	    >
 	        <ImageButton
 	            android:id="@+id/left_button" 
 	            android:layout_column="0"
 	            android:focusable="false" 
 	            android:scaleType="fitCenter"
 	            android:src="@drawable/left_arrow"
-	            android:layout_width="8mm"
-	            android:layout_height="8mm"
+	            android:layout_width="9mm"
+	            android:layout_height="9mm"
+	            android:layout_marginRight="1mm"
 	        />
 	
             <ImageButton 
@@ -96,8 +97,8 @@
                 android:focusable="false" 
                 android:scaleType="fitCenter"
                 android:src="@drawable/undo"
-                android:layout_width="8mm"
-                android:layout_height="8mm"
+                android:layout_width="9mm"
+                android:layout_height="9mm"
             />
 	
 	        <ImageButton
@@ -106,8 +107,9 @@
 	            android:focusable="false"
 	            android:scaleType="fitCenter"
 	            android:src="@drawable/right_arrow"
-	            android:layout_width="8mm"
-	            android:layout_height="8mm"
+	            android:layout_width="9mm"
+	            android:layout_height="9mm"
+                android:layout_marginLeft="1mm"
 	        />
 	    </TableRow>
 
@@ -118,8 +120,8 @@
 	            android:focusable="false" 
 	            android:scaleType="fitCenter"
 	            android:src="@drawable/down_arrow"
-	            android:layout_width="8mm"
-	            android:layout_height="8mm"
+	            android:layout_width="9mm"
+	            android:layout_height="9mm"
 	        />
 	    </TableRow>
     </TableLayout> <!-- nav_button_view -->

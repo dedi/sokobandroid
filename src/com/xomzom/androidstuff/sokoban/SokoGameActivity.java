@@ -54,6 +54,7 @@ import android.widget.TextView;
  * TODO: Allow dragging.
  * TODO: Good images, and possibly themes.
  * TODO: Landscape thing.
+ * TODO: Option for Left-hand play
  * TODO: Help.
  */
 public class SokoGameActivity extends Activity 
