@@ -62,14 +62,13 @@ public class SokoView extends View
     /**
      * Color for the top-left corner of the box - lighted.
      */
-    private final static int LIGHTED_COLOR = 0xffcfcfcf;
+    private final static int LIGHT_COLOR = 0xffcfcfcf;
 
     /**
      * Color for the lower-right corner of the box - shaded.
      */
     private final static int SHADED_COLOR = 0xff404040;
-
-
+    
     
     //
     // Members.
@@ -115,7 +114,7 @@ public class SokoView extends View
         m_game = game;
         invalidate();
     }
-
+    
     /**
      * Refresh the canvas.
      */
@@ -125,104 +124,129 @@ public class SokoView extends View
         // This will draw the background for the resource.
         super.onDraw(canvas);
         
-        m_paint = new Paint();
-        m_paint.setAntiAlias(true);
-        m_paint.setTextSize(16);
-        setPadding(3, 3, 3, 3);
-
         if (m_game == null)
             return;
 
-        int left = 5;
-        int top = 5;
-        int scrWidth = getWidth() - 5;
-        int scrHeight = getHeight() - 5;
+        m_paint = new Paint();
+        m_paint.setAntiAlias(true);
+        setPadding(3, 3, 3, 3);
+
+        Board board = m_game.getBoard();
+        int boardWidth = board.getBoardWidth();
+        int boardHeight = board.getBoardHeight();
+
+        int squareRealSize = getSquareSize();
+        
+        int playerX = board.getPlayerX();
+        int playerY = board.getPlayerY();
+
+        for (int row = 0; row < boardHeight; row++)
+        {
+            for (int column = 0; column < boardWidth; column++)
+            {
+                BoardSquare square = board.getSquare(column, row);
+                if (square != null)
+                {
+                    paintSquare(column, row, 
+                            squareRealSize, square, canvas);
+                }
+                if ((row == playerY) && (column == playerX))
+                {
+                    drawPlayer(column, row, squareRealSize, canvas);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Calculate the best size for a game square, based on the current board
+     * coordinates and view size.
+     * @return
+     */
+    private int getSquareSize()
+    {
+        int scrWidth = getWidth();
+        int scrHeight = getHeight();
         
         Board board = m_game.getBoard();
         int boardWidth = board.getBoardWidth();
         int boardHeight = board.getBoardHeight();
 
-        int squareWidth = (scrWidth - left) / boardWidth;
-        int squareHeight = (scrHeight - top) / board.getBoardHeight();
+        int squareWidth = scrWidth / boardWidth;
+        int squareHeight = scrHeight / boardHeight;
         // Since we want all squares to be - well, square - we need to choose
         // just one size for width and height.
-        int squareRealSize = (squareWidth < squareHeight) ? 
+        int squareBestSize = (squareWidth < squareHeight) ? 
                 squareWidth : squareHeight;
-        
-        for (int row = 0; row < boardHeight; row++)
-        {
-            for (int column = 0; column < boardWidth; column++)
-            {
-                int squareTop = top + row * squareRealSize;
-                int squareLeft = left + column * squareRealSize;
+        return squareBestSize;
+    }
 
-                BoardSquare square = board.getSquare(column, row);
-                if (square != null)
-                {
-                    paintSquare(squareLeft, squareTop, 
-                            squareRealSize, square, canvas);
-                }
-            }
-        }
+    /**
+     * Draw the player in the given position.
+     * 
+     * @param column
+     * @param row
+     * @param squareSize
+     * @param canvas
+     */
+    private void drawPlayer(int column, int row, int squareSize,
+            Canvas canvas)
+    {
+        int squareLeft = column * squareSize;
+        int squareTop = row * squareSize;
 
-        int playerX = board.getPlayerX();
-        int playerY = board.getPlayerY();
-        int playerTop = top + playerY * squareRealSize;
-        int playerLeft = left + playerX * squareRealSize;
-        
-        
         m_paint.setColor(PLAYER_COLOR);
-        RectF playerRect = new RectF(playerLeft, playerTop, 
-                playerLeft + squareRealSize - 1, playerTop + squareRealSize - 1);
+        RectF playerRect = new RectF(squareLeft, squareTop, 
+                squareLeft + squareSize - 1, squareTop + squareSize - 1);
         canvas.drawArc(playerRect, 0, 360, true, m_paint);
-
-        m_paint.setColor(0x000000);
     }
 
     /**
      * Paint a square at the given position.
      * 
-     * @param squareLeft The square left coordinate.
-     * @param squareTop The square top coordinate.
+     * @param column The square column.
+     * @param row The square row.
      * @param squareSize The square width and height.
      * @param square The square to paint.
      * @param g The graphics object to draw on.
      */
-    private void paintSquare(int squareLeft, int squareTop, 
+    private void paintSquare(int column, int row, 
                              int squareSize, BoardSquare square, 
                              Canvas canvas)
     {
+        
         if (square.isWall())
         {
-            draw3DBox(squareLeft, squareTop, squareSize - 1, WALL_COLOR, 
+            draw3DBox(column, row, squareSize, WALL_COLOR, 
                       true, canvas);
         }
         else if (square.hasBox())
         {
-            draw3DBox(squareLeft, squareTop, squareSize - 1, BOX_COLOR, 
+            draw3DBox(column, row, squareSize, BOX_COLOR, 
                       true, canvas);
         }
         else if (square.isTarget())
         {
-            draw3DBox(squareLeft, squareTop, squareSize - 1, TARGET_COLOR, 
+            draw3DBox(column, row, squareSize, TARGET_COLOR, 
                       false, canvas);
         }
     }
     
     /**
      * Draw a 3d box of the given color at the given position.
-     * @param boxLeft the box's left coordinate.
-     * @param boxTop The box's top coordinate.
+     * @param column The square column.
+     * @param row The square row.
      * @param size The box size
      * @param color The box's color.
      * @param outward true if the box should stick out, false if it should be
      * pressed in.
      * @param canvas The canvas to draw on.
      */
-    private void draw3DBox(int boxLeft, int boxTop, 
+    private void draw3DBox(int column, int row, 
                          int size, int color, boolean outward, Canvas canvas)
     {
-        // g.setColor(color);
+        int boxLeft = column * size;
+        int boxTop = row * size;
         m_paint.setColor(color);
         int boxRight = boxLeft + size - 1;
         int boxBottom  = boxTop + size - 1;
@@ -230,11 +254,11 @@ public class SokoView extends View
                 m_paint);
 
 
-        m_paint.setColor(outward ? LIGHTED_COLOR : SHADED_COLOR);
+        m_paint.setColor(outward ? LIGHT_COLOR : SHADED_COLOR);
         canvas.drawLine(boxLeft, boxTop, boxRight, boxTop, m_paint);
         canvas.drawLine(boxLeft, boxTop, boxLeft, boxBottom, m_paint);
-        m_paint.setColor(outward ? SHADED_COLOR: LIGHTED_COLOR);
+        m_paint.setColor(outward ? SHADED_COLOR: LIGHT_COLOR);
         canvas.drawLine(boxLeft + 1, boxBottom, boxRight, boxBottom, m_paint);
         canvas.drawLine(boxRight, boxTop + 1, boxRight, boxBottom, m_paint);
     }
- }
+}
