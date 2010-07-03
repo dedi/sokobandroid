@@ -9,7 +9,7 @@
     <string name="CANCEL_BUTTON_CAPTION">Cancel</string>
     <string name="UNDO_BUTTON_CAPTION">Undo</string>
     <string name="LEVEL_TEXT">Level: %d</string>
-    
+
     <!-- Dialogs -->
     <string name="SELECT_LEVEL_DIALOG_TITLE">Select Level</string>
     <string name="SELECT_LEVEL_DIALOG_CAPTION">New Level:</string>
@@ -24,10 +24,10 @@
     <string name="MENU_ITEM_HELP_CAPTION">Help...</string>
     <string name="MENU_ITEM_EXIT_CAPTION">Exit</string>
 
-    
+
     <!--  Errors, etc. -->
-    <string name="ERR_LEVEL_LOAD">Couldn't read level %s</string>
-    <string name="ERR_BAD_LEVEL_SELECTED">Invalid levels. Level values should be 
+    <string name="ERR_LEVEL_LOAD">Couldn\'t read level %s</string>
+    <string name="ERR_BAD_LEVEL_SELECTED">Invalid levels. Level values should be
     between 1 and %d</string>
 
     <!--  Strictly speaking, I think HTML is not allowed here, and we need
@@ -40,7 +40,7 @@
             </body>
         </html>
     </string>
-    
+
     <!-- Preference page titles and summaries -->
     <string name="PREF_GROUP_BUTTONS_TITLE">Touchscreen Buttons</string>
     <string name="PREF_GROUP_BUTTONS_SUMMARY">
@@ -50,11 +50,11 @@
     If checked, show navigation buttons on screen (useful for touch screen only)
     </string>
     <string name="PREF_SHOW_NAV_BUTTONS_TITLE">Show Navigation Buttons</string>
-    
+
     <string name="PREF_SHOW_UNDO_BUTTON_SUMMARY">
     If checked, show undo button on screen (useful for touch screen only)
     </string>
     <string name="PREF_SHOW_UNDO_BUTTON_TITLE">Show Undo Button</string>
-    
-    
+
+
 </resources>
