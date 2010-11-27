@@ -1,3 +1,22 @@
+/*
+ *  sokoban - a Sokoban game for android devices
+ *  Copyright (C) 2010 Dedi Hirschfeld
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
 package com.xomzom.androidstuff.sokoban;
 
 import android.app.Dialog;
@@ -12,21 +31,21 @@ import android.widget.EditText;
 
 /**
  * The level selection dialog.
- * 
+ *
  * @author dedi
  */
-public class SelectLevelDialog extends Dialog 
+public class SelectLevelDialog extends Dialog
     implements OnClickListener, TextWatcher
 {
     //
     // Members.
     //
-    
+
     /**
      * The Sokoban activity this dialog is associated with.
      */
     private SokoGameActivity m_owner;
-    
+
     /**
      * The 'OK' button.
      */
@@ -36,19 +55,19 @@ public class SelectLevelDialog extends Dialog
      * The 'Cancel' button.
      */
     private Button m_cancelButton;
-    
+
     /**
      * The level input field.
      */
     private EditText m_levelInputField;
-    
+
 
     //
     // Operations.
     //
-    
+
     /**
-     * Create a level selection dialog object, associated with a 
+     * Create a level selection dialog object, associated with a
      * Sokoban activity.
      */
     public SelectLevelDialog(SokoGameActivity owner)
@@ -72,12 +91,12 @@ public class SelectLevelDialog extends Dialog
         m_okButton.setOnClickListener(this);
         m_cancelButton = (Button)findViewById(R.id.select_level_cancel);
         m_cancelButton.setOnClickListener(this);
-        m_levelInputField = 
+        m_levelInputField =
             (EditText)findViewById(R.id.select_level_level_field);
         m_levelInputField.addTextChangedListener(this);
         setOkButtonEnabledState();
     }
-    
+
     /**
      * The 'onclick' event handler - for both OK and Cancel buttons.
      */
@@ -95,32 +114,32 @@ public class SelectLevelDialog extends Dialog
 
         dismiss();
     }
-    
+
     /**
      * Display a 'bad level selected' error message.
      */
     private void doBadLevelError()
     {
         int maxLevel = m_owner.getMaxLevel();
-        String errMsg = 
+        String errMsg =
             m_owner.getString(R.string.ERR_BAD_LEVEL_SELECTED, maxLevel);
         String okButtonCaption = m_owner.getString(R.string.OK_BUTTON_CAPTION);
         DialogFactory dialogFactory = DialogFactory.getInstance();
-        DialogInterface.OnClickListener dismissAction = 
+        DialogInterface.OnClickListener dismissAction =
             dialogFactory.getDismissHandler();
-        dialogFactory.messageBox(m_owner, errMsg, 
+        dialogFactory.messageBox(m_owner, errMsg,
                                  okButtonCaption, dismissAction);
     }
 
-    
+
     /**
-     * Get the contents of the level field. Return -1 if the content of the 
+     * Get the contents of the level field. Return -1 if the content of the
      * field is not a valid integer.
      * @return
      */
     private int getLevelFieldValue()
     {
-        CharSequence newLevelAsChars = m_levelInputField.getText(); 
+        CharSequence newLevelAsChars = m_levelInputField.getText();
         String newLevelAsString = newLevelAsChars.toString();
         int newLevel = -1;
         try {
@@ -142,7 +161,7 @@ public class SelectLevelDialog extends Dialog
     {
         setOkButtonEnabledState();
     }
-    
+
     /**
      * Enable or disable the 'OK' button,
      * depending on whether there's actual text in the field.
@@ -152,7 +171,7 @@ public class SelectLevelDialog extends Dialog
         CharSequence newLevelAsChars = m_levelInputField.getText();
         m_okButton.setEnabled(newLevelAsChars.length() > 0);
     }
-    
+
     /**
      * Unused listener method.
      */

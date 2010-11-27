@@ -1,6 +1,6 @@
 /*
- *  sokoban - a Sokoban game for midp-supporting mobile devices
- *  Copyright (C) 2007,2009 Dedi Hirschfeld
+ *  sokoban - a Sokoban game for android devices
+ *  Copyright (C) 2010 Dedi Hirschfeld
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ import android.content.res.AssetManager;
 
 /**
  * The Sokoban board.
- *  
+ *
  * @author Dedi Hirschfeld
  */
 public class Board
@@ -36,11 +36,11 @@ public class Board
     //
     // Constants.
     //
-    
+
     /**
      * The prefix for level files.
      */
-    private final static String LEVEL_FILE_PREFIX = 
+    private final static String LEVEL_FILE_PREFIX =
     	"levels/level-";
 
     /**
@@ -56,57 +56,57 @@ public class Board
      * The array of board squares.
      */
     private BoardSquare[][] m_boardSquares;
-    
+
     /**
      * The x-coordinate of the player piece.
      */
     private int m_playerX;
-    
+
     /**
      * The y-coordinate of the player piece.
      */
     private int m_playerY;
-    
+
     /**
      * The board width.
      */
     private int m_boardWidth;
-    
+
     /**
      * The board height.
      */
     private int m_boardHeight;
-    
+
     /**
      * The number of empty target squares, which should have boxes but don't.
      */
     private int m_unsolvedTargets;
-    
+
 
     //
     // Operations.
     //
-    
+
     /**
      * Read The board from a level file.
-     * 
+     *
      * @param level The level to read.
      * @param assetsMgr The application's asset manager
-     * @throws IOException if something went wrong in reading the board. 
+     * @throws IOException if something went wrong in reading the board.
      */
     public void read(int level, AssetManager assetsMgr) throws IOException
     {
         read(LEVEL_FILE_PREFIX + level + LEVEL_FILE_POSTFIX, assetsMgr);
     }
-    
+
     /**
      * Read The board from a file.
-     * 
+     *
      * @param filename The filename to read from.
      * @param assetsMgr The application's asset manager
-     * @throws IOException if something went wrong in reading the board. 
+     * @throws IOException if something went wrong in reading the board.
      */
-    private void read(String filename, AssetManager assetsMgr) 
+    private void read(String filename, AssetManager assetsMgr)
         throws IOException
     {
         //InputStream inStream = new FileInputStream(filename);
@@ -114,10 +114,10 @@ public class Board
         read(inStream);
         inStream.close();
     }
-    
+
     /**
      * Read The board from an input stream.
-     * 
+     *
      * @param filename The filename to read from.
      * @throws IOException if something went wrong in reading the board.
      */
@@ -125,7 +125,7 @@ public class Board
     {
         int newPlayerX = -1;
         int newPlayerY = -1;
-        Vector<Vector<BoardSquare>> newBoardVector = 
+        Vector<Vector<BoardSquare>> newBoardVector =
             new Vector<Vector<BoardSquare>>(20);
         int newBoardWidth = 0;
         int curChar;
@@ -166,9 +166,9 @@ public class Board
         m_boardHeight = m_boardSquares.length;
         m_boardWidth = newBoardWidth;
     }
-    
+
     /**
-     * Helper method - create a board array from a vector of vectors of 
+     * Helper method - create a board array from a vector of vectors of
      * squares.
      * @param boardVec The vector to read from.
      * @param width The new board width.
@@ -180,25 +180,25 @@ public class Board
         BoardSquare[][] newBoard = new BoardSquare[boardVec.size()][width];
         for (int curLine = 0; curLine < newBoard.length; curLine++)
         {
-            Vector<BoardSquare> lineVector = 
+            Vector<BoardSquare> lineVector =
                 (Vector<BoardSquare>)boardVec.elementAt(curLine);
             int squaresInLine = lineVector.size();
             for (int curSquare = 0; curSquare < squaresInLine; curSquare++)
             {
-                newBoard[curLine][curSquare] = 
+                newBoard[curLine][curSquare] =
                     (BoardSquare)lineVector.elementAt(curSquare);
             }
         }
         return newBoard;
     }
-    
+
     /**
      * Get the board string representation (for debugging).
      */
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();
-        
+
         for (int i = 0; i < m_boardHeight; i++)
         {
             for (int j = 0; j < m_boardWidth; j++)
@@ -238,14 +238,14 @@ public class Board
      * be treated as read-only, and shouldn't be changed. The square might be
      * undefined (if it was not defined in the original board data), in which
      * case null is returned.
-     *  
-     * @return the contents of the square, or null if the square is undefined. 
+     *
+     * @return the contents of the square, or null if the square is undefined.
      */
     public BoardSquare getSquare(int x, int y)
     {
-       return m_boardSquares[y][x]; 
+       return m_boardSquares[y][x];
     }
-    
+
     /**
      * Return the player's X coordinate.
      * @return The player's X coordinate.
@@ -263,7 +263,7 @@ public class Board
     {
         return m_playerY;
     }
-    
+
     /**
      * Try to perform a move on the board, making sure it is legal.
      * @param move The move to perform.
@@ -274,12 +274,12 @@ public class Board
         boolean moveOk = false;
         int xDelta = move.getXDelta();
         int yDelta = move.getYDelta();
-        
+
         // First, let's figure out if the move is legal. The assumption
         // is, the game area is closed on all sides with walls.
         // Otherwise, the code bellow could throw an exception:
         int targetX = m_playerX + xDelta;
-        int targetY = m_playerY + yDelta; 
+        int targetY = m_playerY + yDelta;
         BoardSquare playerTargetSquare = getSquare(targetX, targetY);
         BoardSquare newBoxSquare = null;
         if (!playerTargetSquare.isWall())
@@ -288,7 +288,7 @@ public class Board
             {
                 moveOk = true;
             }
-            else // We're moving to a boxed position. 
+            else // We're moving to a boxed position.
             {
                 int newBoxX = targetX + xDelta;
                 int newBoxY = targetY + yDelta;
@@ -296,13 +296,13 @@ public class Board
                 moveOk = !newBoxSquare.hasBox() && !newBoxSquare.isWall();
             }
         }
-        
+
         // Now do the actual move.
         if (moveOk)
         {
             m_playerX = targetX;
             m_playerY = targetY;
-            
+
             if (newBoxSquare != null)
             {
                 move.setMoving(true);
@@ -325,7 +325,7 @@ public class Board
         {
             m_unsolvedTargets++;
         }
-        
+
         if (targetSquare.isTarget())
         {
             m_unsolvedTargets--;
@@ -336,7 +336,7 @@ public class Board
      * Undo a move done in the board. This has to be called when the board
      * is set up correctly, otherwise unpredictable things will happen. No
      * validity checks are performed.
-     * 
+     *
      * @param move The move to undo.
      */
     public void undoMove(Move move)
@@ -356,9 +356,9 @@ public class Board
         m_playerX = m_playerX - xDelta;
         m_playerY = m_playerY - yDelta;
     }
-    
+
     /**
-     * Check to see if this board was solved. 
+     * Check to see if this board was solved.
      */
     public boolean isSolved()
     {

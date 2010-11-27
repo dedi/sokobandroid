@@ -1,6 +1,6 @@
 /*
- *  sokoban - a Sokoban game for midp-supporting mobile devices
- *  Copyright (C) 2007,2009 Dedi Hirschfeld
+ *  sokoban - a Sokoban game for android devices
+ *  Copyright (C) 2010 Dedi Hirschfeld
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,12 +17,11 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 package com.xomzom.androidstuff.sokoban;
 
 /**
  * A class describing a single game move.
- * 
+ *
  * @author Dedi Hirschfeld
  */
 public class Move
@@ -35,41 +34,41 @@ public class Move
      * The 'up' direction.
      */
     public final static int DIR_UP = 0;
-    
+
     /**
      * The 'down' direction.
      */
     public final static int DIR_DOWN = 1;
-    
+
     /**
      * The 'left' direciton.
      */
     public final static int DIR_LEFT = 2;
-    
+
     /**
      * The 'right' direciton.
      */
     public final static int DIR_RIGHT = 3;
-    
+
     //
     // Members.
     //
-    
+
     /**
      * The move direction.
      */
     private int m_dir;
-    
+
     /**
-     * A flag to indicate that this move moved a block. Used for undoing a 
+     * A flag to indicate that this move moved a block. Used for undoing a
      * move.
      */
     private boolean m_isMoving = false;
-    
+
     //
     // Operation.
     //
-    
+
     /**
      * Create a move object describing a move in the given direction.
      */
@@ -77,7 +76,7 @@ public class Move
     {
         m_dir = dir;
     }
-    
+
     /**
      * Get the change to the 'x' coordinate when performing this move.
      */
@@ -130,7 +129,7 @@ public class Move
     }
 
     /**
-     * Get the 'isMoving' flag, which indicates that this move is moving a 
+     * Get the 'isMoving' flag, which indicates that this move is moving a
      * block.
      * @return the value of the 'isMoving' flag.
      */

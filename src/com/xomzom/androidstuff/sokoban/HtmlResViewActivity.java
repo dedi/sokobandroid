@@ -1,3 +1,22 @@
+/*
+ *  sokoban - a Sokoban game for android devices
+ *  Copyright (C) 2010 Dedi Hirschfeld
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
 package com.xomzom.androidstuff.sokoban;
 
 import java.io.IOException;
@@ -18,7 +37,7 @@ import android.webkit.WebViewClient;
  * A viewer for HTML resources. This viewer supports the scheme
  * 'android.resource:' in addition to regular schemes. using this scheme will
  * load a resource from the 'raw' directory, which can be localized.
- * 
+ *
  * @author dedi
  */
 public class HtmlResViewActivity extends Activity
@@ -31,8 +50,8 @@ public class HtmlResViewActivity extends Activity
      * The actual WebView.
      */
     private WebView m_webView;
-    
-    
+
+
     //
     // Operations.
     //
@@ -45,7 +64,7 @@ public class HtmlResViewActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         m_webView = new WebView(this);
-        
+
         // Set a client  that can handle resource URIs.
         // This is needed because the default WebView doesn't handle resource
         // URIs - and those are needed so that the help pages can (at some
@@ -71,7 +90,7 @@ public class HtmlResViewActivity extends Activity
 
     /**
      * Load a resource URI into the webview.
-     * 
+     *
      * @param resourceUri
      *            The resource URI.
      */
@@ -79,10 +98,10 @@ public class HtmlResViewActivity extends Activity
     {
         ContentResolver resolver = getContentResolver();
         String content;
-        try 
+        try
         {
             InputStream resourceStream = resolver.openInputStream(resourceUri);
-            InputStreamReader resourceReader = 
+            InputStreamReader resourceReader =
                 new InputStreamReader(resourceStream);
             content=readFully(resourceReader);
         } catch (IOException e) {
@@ -90,10 +109,10 @@ public class HtmlResViewActivity extends Activity
         }
 
         Log.d("Dedi", "Setting content to " + content);
-        m_webView.loadDataWithBaseURL(resourceUri.toString(), content, 
+        m_webView.loadDataWithBaseURL(resourceUri.toString(), content,
                 "text/html", "UTF-8", null);
     }
-    
+
     /**
      * Read the content of the given reader, and return it as a sting.
      */
@@ -107,7 +126,7 @@ public class HtmlResViewActivity extends Activity
             strBuffer.append(charBuffer, 0, readCount);
         return strBuffer.toString();
     }
-    
+
     /**
      * Launch a browser activity to view the given URI.
      * @param uri

@@ -1,5 +1,6 @@
-/*  sokoban - a Sokoban game for midp-supporting mobile devices
- *  Copyright (C) 2007,2009 Dedi Hirschfeld
+/*
+ *  sokoban - a Sokoban game for android devices
+ *  Copyright (C) 2010 Dedi Hirschfeld
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -48,7 +49,7 @@ import android.widget.TextView;
 
 /**
  * The Sokban game activity.
- * 
+ *
  * @author Dedi Hirschfeld
  *
  * TODO: Allow dragging.
@@ -57,13 +58,13 @@ import android.widget.TextView;
  * TODO: Option for Left-hand play
  * TODO: Help.
  */
-public class SokoGameActivity extends Activity 
+public class SokoGameActivity extends Activity
     implements OnClickListener, OnSharedPreferenceChangeListener
 {
     //
     // Constants.
     //
-    
+
     /**
      * The name of the 'level' key in the preferences.
      */
@@ -72,34 +73,34 @@ public class SokoGameActivity extends Activity
     //
     // Members.
     //
-    
+
     /**
      * The current level.
      */
     private int m_level = 1;
-    
+
     /**
      * The game board.
      */
     private Board m_board = new Board();
-    
+
     /**
      * The gameboard view.
      */
     private SokoView m_gameView;
-    
+
     /**
      * The status view.
      */
     private TextView m_statusView;
-    
+
     /**
      * The navigation bar 'Undo' button. See bellow in refreshPreferences for
      * explanation on why there are two undo buttons behaving exactly the same.
      * @see #refreshPreferences()
      */
     private ImageButton m_navUndoButton;
-    
+
     /**
      * The standalone undo button.
      */
@@ -124,12 +125,12 @@ public class SokoGameActivity extends Activity
      * The 'Right' button.
      */
     private ImageButton m_rightButton;
-    
+
     /**
      * The 'previous level' menu item.
      */
     private MenuItem m_previousLevelMenuItem;
-    
+
     /**
      * The 'next level' menu item.
      */
@@ -144,22 +145,22 @@ public class SokoGameActivity extends Activity
      * The list of moves done in the game.
      */
     private Vector<Move> m_moveList = new Vector<Move>();
-    
+
     /**
      * The number of levels.
      */
     private int m_maxLevel;
-    
+
     /**
      * The 'select level' dialog.
      */
     private SelectLevelDialog m_selectLevelDialog;
-    
+
     /**
      * Our preference object, shared with the settings activity.
      */
     private SharedPreferences m_prefs;
-    
+
 
     //
     // activity lifecycle.
@@ -175,20 +176,20 @@ public class SokoGameActivity extends Activity
         setContentView(R.layout.main);
         init();
     }
-    
+
     /**
-     * We're going to pause. Write the level number, since we might be 
+     * We're going to pause. Write the level number, since we might be
      * killed at any moment.
      */
     @Override
-    public void onPause()  
+    public void onPause()
     {
         super.onPause();
         // TODO: Save the entire state. And use a bundle to do it.
         writeCurrentLevelNumber();
     }
-    
-    
+
+
     //
     // Operations.
     //
@@ -200,10 +201,10 @@ public class SokoGameActivity extends Activity
     {
         setLevel(m_level + 1);
     }
-    
+
     /**
      * Set the level.
-     * 
+     *
      * @param level, the new level (or offset).
      * @return true if the level was read successfully, false otherwise. If the
      * level was not read, an error has already been displayed.
@@ -292,14 +293,14 @@ public class SokoGameActivity extends Activity
         return m_maxLevel;
     }
 
-    
+
     //
     // Events (non-lifecycle ones, that is).
     //
-    
+
     /**
      * Create the options menu.
-     * 
+     *
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
     @Override
@@ -308,7 +309,7 @@ public class SokoGameActivity extends Activity
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.mainmenu, menu);
-        
+
         m_previousLevelMenuItem = (MenuItem)menu.findItem(R.id.MENU_ITEM_PREV);
         m_nextLevelMenuItem = (MenuItem)menu.findItem(R.id.MENU_ITEM_NEXT);
         m_undoMenuItem = (MenuItem)menu.findItem(R.id.MENU_ITEM_UNDO);
@@ -320,10 +321,10 @@ public class SokoGameActivity extends Activity
 
         setUndoButtonsState();
         setLevelButtonsState();
-        
+
         return true;
     }
-    
+
     /**
      * An options menu item was selected.
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
@@ -439,7 +440,7 @@ public class SokoGameActivity extends Activity
      */
     private void init()
     {
-        m_prefs = 
+        m_prefs =
             PreferenceManager.getDefaultSharedPreferences(this);
         m_prefs.registerOnSharedPreferenceChangeListener(this);
 
@@ -469,10 +470,10 @@ public class SokoGameActivity extends Activity
         assert(m_gameView != null);
         m_gameView.setGame(this);
     }
-    
+
     /**
      * Helper method - associate a menu item (identified by an ID), with a
-     * URL to show (identified by the resource ID of the string constant 
+     * URL to show (identified by the resource ID of the string constant
      * containing the actual URL).
      */
     private void setUrlToShowOnMenuItem(Menu menu, int menuItemId, int urlResId)
@@ -480,7 +481,7 @@ public class SokoGameActivity extends Activity
         Intent intent = createShowHtmlIntent(urlResId);
         setIntentForMenuItem(menu, menuItemId, intent);
     }
-    
+
     /**
      * Helper method - associate a menu item (identified by an ID), with an
      * intent to launch when the menu item is selected.
@@ -500,7 +501,7 @@ public class SokoGameActivity extends Activity
         String errMsg = getString(R.string.ERR_LEVEL_LOAD, level);
         String okButtonCaption = getString(R.string.OK_BUTTON_CAPTION);
         DialogFactory dialogFactory = DialogFactory.getInstance();
-        DialogInterface.OnClickListener dismissAction = 
+        DialogInterface.OnClickListener dismissAction =
             dialogFactory.getDismissHandler();
         dialogFactory.messageBox(this, errMsg, okButtonCaption, dismissAction);
     }
@@ -515,7 +516,7 @@ public class SokoGameActivity extends Activity
         button.setOnClickListener(this);
         return button;
     }
-    
+
     private void doSelectLevelDialog()
     {
         if (m_selectLevelDialog == null)
@@ -533,7 +534,7 @@ public class SokoGameActivity extends Activity
         boolean enabled = !m_moveList.isEmpty();
         m_navUndoButton.setEnabled(enabled);
         m_standaloneUndoButton.setEnabled(enabled);
-        
+
         if (m_undoMenuItem != null)
             m_undoMenuItem.setEnabled(enabled);
     }
@@ -543,11 +544,11 @@ public class SokoGameActivity extends Activity
      */
     private void setLevelButtonsState()
     {
-        // If the previous level item is null, the menu has not yet been 
+        // If the previous level item is null, the menu has not yet been
         // initialized, so there's no need to set the menu options.
         if (m_previousLevelMenuItem == null)
             return;
-        
+
         m_previousLevelMenuItem.setEnabled(m_level > 1);
         m_nextLevelMenuItem.setEnabled(m_level < m_maxLevel);
     }
@@ -560,9 +561,9 @@ public class SokoGameActivity extends Activity
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         return preferences.getInt(LEVEL_PREF_NAME, 1);
     }
-    
+
     /**
-     * Write the level to the store. 
+     * Write the level to the store.
      */
     private void writeCurrentLevelNumber()
     {
@@ -571,7 +572,7 @@ public class SokoGameActivity extends Activity
         prefEditor.putInt(LEVEL_PREF_NAME, m_level);
         prefEditor.commit();
     }
-    
+
     /**
      * Helper method - create an intent to view the URL identified as a string
      * constant resource ID.
@@ -588,21 +589,21 @@ public class SokoGameActivity extends Activity
 
     /**
      * Initialize preferences to default values based on hardware properties.
-     * That is, default buttons nav buttons ot 'show' if there's a 
-     * touchscreen and no dpad, default undo button to show if there's a 
+     * That is, default buttons nav buttons ot 'show' if there's a
+     * touchscreen and no dpad, default undo button to show if there's a
      * touchscreen. In any case, if a preference has already been set, do
      * nothing.
      */
     private void initPreferencesDefault()
     {
         Configuration config = getResources().getConfiguration();
-        
-        boolean hasDpad = 
+
+        boolean hasDpad =
             (config.navigation == Configuration.NAVIGATION_DPAD);
-        boolean hasTouchScreen = 
+        boolean hasTouchScreen =
             (config.touchscreen != Configuration.TOUCHSCREEN_NOTOUCH);
-        
-        boolean showUndoButton = hasTouchScreen; 
+
+        boolean showUndoButton = hasTouchScreen;
         boolean showNavButtons = (hasTouchScreen && !hasDpad);
         setBoolPrefDefault(R.string.PREF_SHOW_NAV_BUTTONS_KEY, showNavButtons);
         setBoolPrefDefault(R.string.PREF_SHOW_UNDO_BUTTON_KEY, showUndoButton);
@@ -611,7 +612,7 @@ public class SokoGameActivity extends Activity
     /**
      * Set a default value to the given boolean pref. If the pref is already
      * defined, do nothing.
-     * 
+     *
      * @param keyStrId The resource ID of the key string.
      * @param value The default value to set.
      */
@@ -631,9 +632,9 @@ public class SokoGameActivity extends Activity
      */
     private void refreshPreferences()
     {
-        boolean showNavButtonsPref = 
+        boolean showNavButtonsPref =
             getBoolPrefByKeyID(R.string.PREF_SHOW_NAV_BUTTONS_KEY, false);
-        boolean showUndoButtonPref = 
+        boolean showUndoButtonPref =
             getBoolPrefByKeyID(R.string.PREF_SHOW_UNDO_BUTTON_KEY, false);
 
         View navButtonView = findViewById(R.id.nav_button_view);
@@ -644,7 +645,7 @@ public class SokoGameActivity extends Activity
 
         // The trick is, we have two undo buttons, one inside the nav view, and
         // one right besides it. we show either the standalone view or the
-        // stand-alone undo button (or neither), but never borth of them 
+        // stand-alone undo button (or neither), but never borth of them
         // together.
         if (showNavButtonsPref)
         {
@@ -654,7 +655,7 @@ public class SokoGameActivity extends Activity
         }
         else
         {
-            if (showUndoButtonPref) 
+            if (showUndoButtonPref)
             {
                 m_standaloneUndoButton.setVisibility(View.VISIBLE);
             }
@@ -664,9 +665,9 @@ public class SokoGameActivity extends Activity
     }
 
     /**
-     * Helper method: get a boolean preference, identified by it's key 
+     * Helper method: get a boolean preference, identified by it's key
      * string ID. If the preference is not defined, return the default value.
-     * 
+     *
      * @param keyStrId The resource ID of the string identifying the key.
      * @param defValue The default value for this field.
      */
