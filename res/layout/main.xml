@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffe0e0e0"
+    android:background="#ff000000"
     android:orientation="horizontal"
     android:id="@+id/master_layout">
-    
+
   <LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -13,18 +13,18 @@
     android:id="@+id/gameview_and_status_layout"
     android:layout_weight="1"
   >
-  
+
     <TextView
         android:id="@+id/status_view"
-	    android:layout_width="wrap_content" 
+	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:focusable="false" 
-	    android:textColor="#ff4040ff"
+	    android:focusable="false"
+	    android:textColor="#c0c0c0"
 	    android:text="blah"
 	/>
-    
+
     <com.xomzom.androidstuff.sokoban.SokoView
-	    android:id="@+id/game_view"  
+	    android:id="@+id/game_view"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:focusable="true"
@@ -34,19 +34,19 @@
   </LinearLayout> <!-- gameview_and_status_layout -->
 
   <LinearLayout
-    android:id="@+id/button_container_view" 
+    android:id="@+id/button_container_view"
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:layout_weight="0"
     android:gravity="center"
     >
-    
-    <!-- There's a trick here - we actually have two similar undo buttons, 
+
+    <!-- There's a trick here - we actually have two similar undo buttons,
     but at most one is visible at any time. See the code for SokoGameActivity
     for details. -->
-    <ImageButton 
-        android:id="@+id/standalone_undo_button" 
-        android:focusable="false" 
+    <ImageButton
+        android:id="@+id/standalone_undo_button"
+        android:focusable="false"
         android:scaleType="fitCenter"
         android:src="@drawable/undo"
         android:layout_width="9mm"
@@ -56,10 +56,10 @@
     />
 
     <TableLayout
-        android:id="@+id/nav_button_view" 
+        android:id="@+id/nav_button_view"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:focusable="false" 
+	    android:focusable="false"
 	    android:layout_marginRight="2mm"
         android:layout_marginLeft="1mm"
     >
@@ -68,41 +68,41 @@
 	       android:layout_marginBottom="1mm"
 	    >
 	        <ImageButton
-	            android:id="@+id/up_button" 
+	            android:id="@+id/up_button"
 	            android:layout_column="1"
-	            android:focusable="false" 
+	            android:focusable="false"
 	            android:scaleType="fitCenter"
 	            android:src="@drawable/up_arrow"
 	            android:layout_width="9mm"
 	            android:layout_height="9mm"
 	        />
 	    </TableRow>
-	
+
 	    <TableRow
 	       android:layout_marginBottom="1mm"
 	    >
 	        <ImageButton
-	            android:id="@+id/left_button" 
+	            android:id="@+id/left_button"
 	            android:layout_column="0"
-	            android:focusable="false" 
+	            android:focusable="false"
 	            android:scaleType="fitCenter"
 	            android:src="@drawable/left_arrow"
 	            android:layout_width="9mm"
 	            android:layout_height="9mm"
 	            android:layout_marginRight="1mm"
 	        />
-	
-            <ImageButton 
-                android:id="@+id/nav_undo_button" 
-                android:focusable="false" 
+
+            <ImageButton
+                android:id="@+id/nav_undo_button"
+                android:focusable="false"
                 android:scaleType="fitCenter"
                 android:src="@drawable/undo"
                 android:layout_width="9mm"
                 android:layout_height="9mm"
             />
-	
+
 	        <ImageButton
-	            android:id="@+id/right_button" 
+	            android:id="@+id/right_button"
 	            android:layout_column="2"
 	            android:focusable="false"
 	            android:scaleType="fitCenter"
@@ -115,9 +115,9 @@
 
 	    <TableRow>
 	        <ImageButton
-	            android:id="@+id/down_button" 
+	            android:id="@+id/down_button"
 	            android:layout_column="1"
-	            android:focusable="false" 
+	            android:focusable="false"
 	            android:scaleType="fitCenter"
 	            android:src="@drawable/down_arrow"
 	            android:layout_width="9mm"
@@ -126,5 +126,5 @@
 	    </TableRow>
     </TableLayout> <!-- nav_button_view -->
   </LinearLayout> <!-- button_container_view -->
-    
+
 </LinearLayout>

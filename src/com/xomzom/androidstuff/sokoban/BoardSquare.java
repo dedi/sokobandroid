@@ -67,6 +67,11 @@ public class BoardSquare
     private final static byte IS_START_POINT = 0x08;
 
     /**
+     *  Mask for the 'isInsideBoard' flag.
+     */
+    private final static byte IS_INSIDE_BOARD = 0x10;
+
+    /**
      * A string of known characters, each in a position representing it's
      * byte value.
      */
@@ -126,6 +131,32 @@ public class BoardSquare
         {
             m_squareContents &= (~HAS_BOX);
         }
+    }
+
+    /**
+     * Return the 'is_inside_board' flag. This is set to true for all squares
+     *  that are inside the game board (that is, that are surounded by walls),
+     *  and to false for all others.
+     */
+    public boolean isInsideBoard()
+    {
+        return (m_squareContents & IS_INSIDE_BOARD) != 0;
+    }
+
+    /**
+     * Set the 'isInsideBoard' flag.
+     */
+    public void setIsInsideBoard(boolean isInside)
+    {
+        if (isInside)
+        {
+            m_squareContents |= IS_INSIDE_BOARD;
+        }
+        else
+        {
+            m_squareContents &= (~IS_INSIDE_BOARD);
+        }
+
     }
 
     /**

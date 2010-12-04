@@ -165,6 +165,36 @@ public class Board
         m_playerY = newPlayerY;
         m_boardHeight = m_boardSquares.length;
         m_boardWidth = newBoardWidth;
+
+        // markInsideSquares needs a point inside the board to start it's
+        // marking. it seems safe to assume that the player is inside the board.
+        markInsideSquares(m_playerX, m_playerY);
+    }
+
+    /**
+     * Helper method: mark all squares that are inside the game board. This uses
+     * a flood-fill algorithm. When called with a point inside the board, it
+     * marks it, and all other connected points until walls are reached.
+     *
+     * The algorithm used is a simple recursive fill - chosen for it's
+     * simplicity. The downside, though, is that a large board might cause a
+     * stack overflow. But it seems like current Android screens aren't big
+     * enough to display such large boards anyway.
+     *
+     * @param initialX The initial point X coordinate
+     * @param initialY The initial point Y coordinate
+     */
+    private void markInsideSquares(int initialX, int initialY)
+    {
+        BoardSquare square = getSquare(initialX, initialY);
+        if (square == null || square.isInsideBoard() || square.isWall())
+            return;
+
+        square.setIsInsideBoard(true);
+        markInsideSquares(initialX - 1, initialY);
+        markInsideSquares(initialX + 1, initialY);
+        markInsideSquares(initialX, initialY - 1);
+        markInsideSquares(initialX, initialY + 1);
     }
 
     /**
@@ -243,7 +273,11 @@ public class Board
      */
     public BoardSquare getSquare(int x, int y)
     {
-       return m_boardSquares[y][x];
+        try {
+            return m_boardSquares[y][x];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     /**
