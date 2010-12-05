@@ -37,31 +37,6 @@ import android.view.View;
 public class SokoView extends View
 {
     //
-    // Color constants.
-    //
-
-    /**
-     * Board background color.
-     */
-    private final static int BOARD_COLOR = 0xffb49056;
-
-    /**
-     * The wall color.
-     */
-    private final static int WALL_COLOR = 0xff9d5c3d;
-
-    /**
-     * Color for the top-left corner of the box - lighted.
-     */
-    private final static int LIGHT_COLOR = 0xffcfcfcf;
-
-    /**
-     * Color for the lower-right corner of the box - shaded.
-     */
-    private final static int SHADED_COLOR = 0xff404040;
-
-
-    //
     // Members.
     //
 
@@ -139,11 +114,7 @@ public class SokoView extends View
         {
             for (int column = 0; column < boardWidth; column++)
             {
-                BoardSquare square = board.getSquare(column, row);
-                if (square != null)
-                {
-                    drawSquare(column, row, squareRealSize, square, canvas);
-                }
+                drawSquare(column, row, squareRealSize, board, canvas);
             }
         }
     }
@@ -177,24 +148,28 @@ public class SokoView extends View
      * @param column The square column.
      * @param row The square row.
      * @param squareSize The square width and height.
-     * @param square The square to paint.
+     * @param board The game board.
      * @param g The graphics object to draw on.
      */
     private void drawSquare(int column, int row,
-                             int squareSize, BoardSquare square,
+                             int squareSize, Board board,
                              Canvas canvas)
     {
+        BoardSquare square = board.getSquare(column, row);
+        if (square == null)
+            return;
+
         if (square.isWall())
         {
-            drawBox(column, row, squareSize, WALL_COLOR,
-                      3, canvas);
+            drawBitmap(m_resourceManager.getWallBitmap(), column, row,
+                    squareSize, canvas);
             return;
         }
 
         if (square.isInsideBoard())
         {
-            drawBox(column, row, squareSize, BOARD_COLOR,
-                    1, canvas);
+            drawBitmap(m_resourceManager.getTileBitmap(), column, row,
+                    squareSize, canvas);
         }
 
         if (square.isTarget())
@@ -209,8 +184,6 @@ public class SokoView extends View
                     squareSize, canvas);
         }
 
-
-        Board board = m_game.getBoard();
         if ((row == board.getPlayerY()) && (column == board.getPlayerX()))
         {
             drawBitmap(m_resourceManager.getPlayerBitmap(),
@@ -234,44 +207,5 @@ public class SokoView extends View
         Rect rect = new Rect(squareLeft, squareTop,
                 squareLeft + squareSize - 1, squareTop + squareSize - 1);
         canvas.drawBitmap(bitmap, null, rect, null);
-    }
-
-    /**
-     * Draw a box of the given color at the given position.
-     * @param column The square column.
-     * @param row The square row.
-     * @param size The box size
-     * @param color The box's color.
-     * @param height The height to simulate using 3d light effects - 0 and up to
-     *               around 3 will look OK, depending on the screen resolution.
-     * @param canvas The canvas to draw on.
-     */
-    private void drawBox(int column, int row,
-                         int size, int color,
-                         int height, Canvas canvas)
-    {
-        int boxLeft = column * size;
-        int boxTop = row * size;
-        m_paint.setColor(color);
-        int boxRight = boxLeft + size - 1;
-        int boxBottom  = boxTop + size - 1;
-        canvas.drawRect(boxLeft, boxTop,
-                boxRight, boxBottom,
-                m_paint);
-
-        // light effect...
-        for (int lightLine = 0; lightLine < height; lightLine ++)
-        {
-            m_paint.setColor(LIGHT_COLOR);
-            canvas.drawLine(boxLeft, boxTop, boxRight, boxTop, m_paint);
-            canvas.drawLine(boxLeft, boxTop, boxLeft, boxBottom, m_paint);
-            m_paint.setColor(SHADED_COLOR);
-            canvas.drawLine(boxLeft + 1, boxBottom, boxRight, boxBottom, m_paint);
-            canvas.drawLine(boxRight, boxTop + 1, boxRight, boxBottom, m_paint);
-            boxLeft++;
-            boxTop++;
-            boxRight--;
-            boxBottom--;
-        }
     }
 }

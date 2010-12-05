@@ -48,11 +48,12 @@
         android:id="@+id/standalone_undo_button"
         android:focusable="false"
         android:scaleType="fitCenter"
-        android:src="@drawable/undo"
+        android:src="@drawable/btn_revert"
         android:layout_width="9mm"
         android:layout_height="9mm"
         android:layout_marginRight="5mm"
         android:layout_marginLeft="2mm"
+        android:background="#b0b0b0"
     />
 
     <TableLayout
@@ -72,7 +73,7 @@
 	            android:layout_column="1"
 	            android:focusable="false"
 	            android:scaleType="fitCenter"
-	            android:src="@drawable/up_arrow"
+	            android:src="@drawable/btn_uparrow"
 	            android:layout_width="9mm"
 	            android:layout_height="9mm"
 	        />
@@ -86,7 +87,7 @@
 	            android:layout_column="0"
 	            android:focusable="false"
 	            android:scaleType="fitCenter"
-	            android:src="@drawable/left_arrow"
+	            android:src="@drawable/btn_leftarrow"
 	            android:layout_width="9mm"
 	            android:layout_height="9mm"
 	            android:layout_marginRight="1mm"
@@ -96,7 +97,7 @@
                 android:id="@+id/nav_undo_button"
                 android:focusable="false"
                 android:scaleType="fitCenter"
-                android:src="@drawable/undo"
+                android:src="@drawable/btn_revert"
                 android:layout_width="9mm"
                 android:layout_height="9mm"
             />
@@ -106,7 +107,7 @@
 	            android:layout_column="2"
 	            android:focusable="false"
 	            android:scaleType="fitCenter"
-	            android:src="@drawable/right_arrow"
+	            android:src="@drawable/btn_rightarrow"
 	            android:layout_width="9mm"
 	            android:layout_height="9mm"
                 android:layout_marginLeft="1mm"
@@ -119,7 +120,7 @@
 	            android:layout_column="1"
 	            android:focusable="false"
 	            android:scaleType="fitCenter"
-	            android:src="@drawable/down_arrow"
+	            android:src="@drawable/btn_downarrow"
 	            android:layout_width="9mm"
 	            android:layout_height="9mm"
 	        />

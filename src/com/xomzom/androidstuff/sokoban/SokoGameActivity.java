@@ -70,6 +70,16 @@ public class SokoGameActivity extends Activity
      */
     private final static String LEVEL_PREF_NAME = "CURRENT_LEVEL";
 
+    /**
+     * The transparency to use for the undo button, when it's enabled.
+     */
+    private static final int UNDO_ENABLED_TRANSPARENCY = 255;
+
+    /**
+     * The transparency to use for the undo button, when it's disabled.
+     */
+    private static final int UNDO_DISABLED_TRANSPARENCY = 128;
+
     //
     // Members.
     //
@@ -532,8 +542,12 @@ public class SokoGameActivity extends Activity
     private void setUndoButtonsState()
     {
         boolean enabled = !m_moveList.isEmpty();
+        int buttonTransparency =
+            (enabled ? UNDO_ENABLED_TRANSPARENCY : UNDO_DISABLED_TRANSPARENCY);
         m_navUndoButton.setEnabled(enabled);
+        m_navUndoButton.setAlpha(buttonTransparency);
         m_standaloneUndoButton.setEnabled(enabled);
+        m_standaloneUndoButton.setAlpha(buttonTransparency);
 
         if (m_undoMenuItem != null)
             m_undoMenuItem.setEnabled(enabled);

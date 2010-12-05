@@ -57,6 +57,16 @@ public class GameResourceManager {
      */
     private Bitmap m_targetBitmap;
 
+    /**
+     * Bitmap for the floor tile
+     */
+    private Bitmap m_tileBitmap;
+
+    /**
+     * Bitmap for the wall
+     */
+    private Bitmap m_wallBitmap;
+
 
     //
     // Operations.
@@ -98,14 +108,32 @@ public class GameResourceManager {
     }
 
     /**
+     * Get the tile bitmap.
+     */
+    public Bitmap getTileBitmap()
+    {
+        return m_tileBitmap;
+    }
+
+    /**
+     * Get the wall bitmap.
+     */
+    public Bitmap getWallBitmap()
+    {
+        return m_wallBitmap;
+    }
+
+    /**
      * Load the needed bitmaps.
      * TODO: Resize when needed, instead of on every draw.
      */
     private void loadBitmaps()
     {
         m_playerBitmap = loadBitmap(R.drawable.ksok_man);
-        m_boxBitmap = loadBitmap(R.drawable.ksok_object);
+        m_boxBitmap = loadBitmap(R.drawable.box);
         m_targetBitmap = loadBitmap(R.drawable.ksok_goal);
+        m_tileBitmap = loadBitmap(R.drawable.tile);
+        m_wallBitmap = loadBitmap(R.drawable.wall);
     }
 
     /**
