@@ -52,11 +52,8 @@ import android.widget.TextView;
  *
  * @author Dedi Hirschfeld
  *
- * TODO: Allow dragging.
- * TODO: Good images, and possibly themes.
- * TODO: Landscape thing.
+ * TODO: Gestures.
  * TODO: Option for Left-hand play
- * TODO: Help.
  */
 public class SokoGameActivity extends Activity
     implements OnClickListener, OnSharedPreferenceChangeListener

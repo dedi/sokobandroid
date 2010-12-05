@@ -118,7 +118,6 @@ public class HtmlResViewActivity extends Activity
      */
     private String readFully(Reader reader) throws IOException
     {
-        // TODO: change 1024.
         char[] charBuffer = new char[1024];
         StringBuffer strBuffer = new StringBuffer();
         int readCount;
