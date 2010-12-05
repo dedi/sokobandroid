@@ -129,7 +129,7 @@ public class GameResourceManager {
      */
     private void loadBitmaps()
     {
-        m_playerBitmap = loadBitmap(R.drawable.ksok_man);
+        m_playerBitmap = loadBitmap(R.drawable.man);
         m_boxBitmap = loadBitmap(R.drawable.box);
         m_targetBitmap = loadBitmap(R.drawable.ksok_goal);
         m_tileBitmap = loadBitmap(R.drawable.tile);
